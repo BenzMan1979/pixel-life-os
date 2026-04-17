@@ -90,6 +90,14 @@ h3 { font-size: 0.9rem; }
   letter-spacing: 0.01em;
 }
 
+/* BUT — pre/code/kbd stay in mono terminal font so ascii box-drawing aligns.
+   PingFang renders ═║╔╗ as full-width which breaks banner alignment. */
+.cjk :is(pre, code, kbd),
+:lang(zh) :is(pre, code, kbd) {
+  font-family: var(--font-term);
+  letter-spacing: 0;
+}
+
 hr {
   border: none;
   border-top: 1px dashed var(--fg-dim);
