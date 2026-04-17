@@ -117,6 +117,16 @@ pre {
   white-space: pre;
 }
 
+/* reset inline-code styling when it's inside a pre block.
+   otherwise the inline padding on <code> indents the first line
+   of fenced code blocks. */
+pre > code {
+  background: none;
+  border: none;
+  padding: 0;
+  display: block;
+}
+
 /* --- reusable terminal frame --- */
 .term-frame {
   position: relative;
