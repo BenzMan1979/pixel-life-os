@@ -25,6 +25,11 @@ export function MatrixRain() {
     const CHAR_SET =
       "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789<>/\\|=+-*&^%$#@!?";
     const FONT_SIZE = 14;
+    // longer trail + slower fall. explicit trail rendering (clear each frame,
+    // redraw trail with decaying alpha) so the canvas never accumulates.
+    const TRAIL_LEN = 18;
+    const DROP_STEP = 0.35;
+
     let cols = 0;
     let rows = 0;
     let drops: number[] = [];
@@ -39,8 +44,9 @@ export function MatrixRain() {
       ctx.scale(dpr, dpr);
       cols = Math.ceil(window.innerWidth / FONT_SIZE);
       rows = Math.ceil(window.innerHeight / FONT_SIZE);
+      // stagger initial positions so streams don't all hit top/bottom together
       drops = Array.from({ length: cols }, () =>
-        Math.floor(Math.random() * rows)
+        Math.random() * rows * 2 - rows
       );
       ctx.font = `${FONT_SIZE}px ui-monospace, Menlo, monospace`;
       ctx.textBaseline = "top";
@@ -50,26 +56,35 @@ export function MatrixRain() {
       CHAR_SET.charAt(Math.floor(Math.random() * CHAR_SET.length));
 
     const draw = () => {
-      // aggressive fade: each frame clears ~35% of the previous frame so
-      // trails decay in <10 frames (~0.7s at 15fps) instead of accumulating
-      // into a muddy ghost layer over time.
-      ctx.fillStyle = "rgba(10, 15, 8, 0.35)";
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      // full clear each frame — zero accumulation, trail is drawn explicitly.
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       for (let i = 0; i < drops.length; i++) {
         const x = i * FONT_SIZE;
-        const y = drops[i] * FONT_SIZE;
-        // head char bright and near-opaque; body more translucent
-        const isHead = Math.random() > 0.985;
-        ctx.fillStyle = isHead
-          ? "rgba(134, 239, 172, 0.95)"
-          : "rgba(74, 222, 128, 0.55)";
-        ctx.fillText(pick(), x, y);
+        const headRow = Math.floor(drops[i]);
 
-        if (drops[i] * FONT_SIZE > window.innerHeight && Math.random() > 0.975) {
-          drops[i] = 0;
+        for (let t = 0; t < TRAIL_LEN; t++) {
+          const row = headRow - t;
+          const y = row * FONT_SIZE;
+          if (y < -FONT_SIZE || y > window.innerHeight) continue;
+          if (t === 0) {
+            ctx.fillStyle = "rgba(200, 255, 220, 0.95)"; // near-white head
+          } else {
+            // linear falloff from ~0.5 → near 0 across trail
+            const alpha = Math.max(0.03, 0.55 * (1 - t / TRAIL_LEN));
+            ctx.fillStyle = `rgba(74, 222, 128, ${alpha})`;
+          }
+          ctx.fillText(pick(), x, y);
         }
-        drops[i] += 1;
+
+        drops[i] += DROP_STEP;
+        // recycle once head is well past the bottom (so trail fully exits)
+        if (
+          drops[i] * FONT_SIZE > window.innerHeight + TRAIL_LEN * FONT_SIZE &&
+          Math.random() > 0.96
+        ) {
+          drops[i] = -Math.random() * TRAIL_LEN;
+        }
       }
     };
 
