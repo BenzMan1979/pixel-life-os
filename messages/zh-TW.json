@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "pixel-life.os // 開發日誌",
+    "description": "把生命變成一款你願意每天打開的 RPG。Solo 開發，公開養成。"
+  },
+  "boot": {
+    "line1": "pixel-life.os v0.0.1",
+    "line2": "記憶體檢查 .................. ok",
+    "line3": "載入 devlog 模組 ............ ok",
+    "line4": "掛載 /healthkit ............. 延後",
+    "line5": "檢查 hp 基準線 .............. 4516 hp",
+    "line6": "啟動終端機 .................. ok",
+    "line7": "按任意鍵繼續_",
+    "skip": "[esc] 跳過"
+  },
+  "nav": {
+    "home": "首頁",
+    "devlog": "日誌",
+    "roadmap": "路線",
+    "about": "關於"
+  },
+  "home": {
+    "tagline": "把生命變成一款你願意每天打開的 RPG。",
+    "building": "正在建造：",
+    "mvp": "MVP — 9 個月到 App Store",
+    "latest": "最新日誌",
+    "readAll": "看所有日誌 →",
+    "visits": "訪客數"
+  },
+  "devlog": {
+    "title": "開發日誌",
+    "subtitle": "每週（大概）一篇，從洞穴裡傳出來。",
+    "empty": "還沒有日誌，等等再來。",
+    "hpDelta": "hp 變化",
+    "back": "← 回日誌列表"
+  },
+  "milestone": {
+    "title": "里程碑",
+    "kickoff": "啟案",
+    "poc": "SLM 驗證",
+    "art": "像素美術定稿",
+    "core": "核心 HP 引擎",
+    "battle": "對戰系統",
+    "gear": "裝備系統",
+    "twin": "AI 分身",
+    "polish": "Beta 打磨",
+    "ship": "App Store 上架"
+  },
+  "notFound": {
+    "title": "HP 0",
+    "subtitle": "GAME OVER",
+    "hint": "你找的頁面被 perma-kill 了。",
+    "revive": "← 復活（回首頁）"
+  },
+  "footer": {
+    "built": "由 benzshen @ shenprime 手工打造。",
+    "not_ai": "此站由人類打字產出，不是 AI 生成的。"
+  }
+}

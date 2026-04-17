@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "pixel-life.os // devlog",
+    "description": "building a gamified life RPG. solo, in public, pixel by pixel."
+  },
+  "boot": {
+    "line1": "pixel-life.os v0.0.1",
+    "line2": "memory check ................ ok",
+    "line3": "loading devlog module ....... ok",
+    "line4": "mounting /healthkit ......... deferred",
+    "line5": "checking hp baseline ........ 4516 hp",
+    "line6": "initializing terminal ....... ok",
+    "line7": "press any key to continue_",
+    "skip": "[esc] skip"
+  },
+  "nav": {
+    "home": "home",
+    "devlog": "devlog",
+    "roadmap": "roadmap",
+    "about": "about"
+  },
+  "home": {
+    "tagline": "turn your life into an RPG you actually want to open every day.",
+    "building": "now building:",
+    "mvp": "MVP — 9 months to App Store",
+    "latest": "latest log",
+    "readAll": "read all logs →",
+    "visits": "visitors"
+  },
+  "devlog": {
+    "title": "devlog",
+    "subtitle": "weekly-ish updates from inside the cave.",
+    "empty": "no logs yet. check back soon.",
+    "hpDelta": "hp delta",
+    "back": "← back to devlog"
+  },
+  "milestone": {
+    "title": "milestones",
+    "kickoff": "kickoff",
+    "poc": "SLM proof-of-concept",
+    "art": "pixel art lockdown",
+    "core": "core HP engine",
+    "battle": "battle system",
+    "gear": "gear system",
+    "twin": "AI twin",
+    "polish": "beta polish",
+    "ship": "App Store ship"
+  },
+  "notFound": {
+    "title": "HP 0",
+    "subtitle": "GAME OVER",
+    "hint": "the page you're looking for got perma-killed.",
+    "revive": "← revive (back to home)"
+  },
+  "footer": {
+    "built": "handcrafted by benzshen @ shenprime.",
+    "not_ai": "this site was typed, not generated."
+  }
+}

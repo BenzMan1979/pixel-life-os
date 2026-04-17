@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   pixel-life.os — design tokens
+   palette locked to 5 colours. zero rounded corners. 1px hard borders.
+   ------------------------------------------------------------------ */
+
+:root {
+  --bg: #0a0f08;          /* near-black, tinted green */
+  --bg-raised: #0f1f0f;   /* phosphor shadow */
+  --grid: #16301a;        /* faint grid lines */
+  --fg: #4ade80;          /* primary phosphor green */
+  --fg-bright: #86efac;   /* hover / active */
+  --fg-dim: #2f6b3c;      /* deprecated / metadata */
+  --accent: #fef3c7;      /* CRT amber highlight */
+  --danger: #f87171;      /* HP low / GAME OVER */
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-grid: var(--grid);
+  --color-fg: var(--fg);
+  --color-fg-bright: var(--fg-bright);
+  --color-fg-dim: var(--fg-dim);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --font-pixel: var(--font-press-start), "Courier New", monospace;
+  --font-term: var(--font-vt323), ui-monospace, Menlo, Consolas, monospace;
+  --font-cjk: "PingFang TC", "Heiti TC", "Microsoft JhengHei",
+              ui-monospace, Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-term);
+  font-size: 18px;
+  line-height: 1.45;
+  text-rendering: geometricPrecision;
+  min-height: 100%;
+}
+
+/* subtle phosphor glow on all foreground text */
+body {
+  text-shadow: 0 0 1px currentColor;
+}
+
+/* background grid — barely visible, emphasises "terminal on CRT" */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+::selection { background: var(--fg); color: var(--bg); }
+
+a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--fg-dim); }
+a:hover { color: var(--fg-bright); border-bottom-color: var(--fg-bright); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-pixel);
+  letter-spacing: 0.02em;
+  font-weight: normal;
+  color: var(--fg-bright);
+}
+
+h1 { font-size: 1.25rem; }
+h2 { font-size: 1.05rem; }
+h3 { font-size: 0.9rem; }
+
+/* cjk content keeps monospaced vibe but uses system CJK */
+:lang(zh) :is(h1, h2, h3, h4, p, li, span, a, td, th),
+.cjk {
+  font-family: var(--font-cjk);
+  letter-spacing: 0.01em;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed var(--fg-dim);
+  margin: 1.5rem 0;
+}
+
+code, pre, kbd {
+  font-family: var(--font-term);
+  background: var(--bg-raised);
+  border: 1px solid var(--fg-dim);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* --- reusable terminal frame --- */
+.term-frame {
+  position: relative;
+  border: 1px solid var(--fg-dim);
+  background: linear-gradient(180deg, var(--bg-raised) 0%, var(--bg) 100%);
+  padding: 1.25rem 1.5rem;
+}
+.term-frame::before {
+  content: "┌─" attr(data-label) "─" attr(data-ext) "──────";
+  position: absolute;
+  top: -0.75em;
+  left: 0.5em;
+  background: var(--bg);
+  padding: 0 0.5em;
+  font-family: var(--font-term);
+  color: var(--fg-dim);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: calc(100% - 1.5em);
+}
+
+/* --- ascii hr --- */
+.ascii-hr {
+  color: var(--fg-dim);
+  font-family: var(--font-term);
+  white-space: pre;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* --- blinking cursor --- */
+.cursor::after {
+  content: "▊";
+  display: inline-block;
+  margin-left: 0.1em;
+  animation: blink 1.05s steps(2, start) infinite;
+  color: var(--fg);
+}
+@keyframes blink { to { visibility: hidden; } }
+
+/* --- scanline overlay (applied via CrtOverlay component) --- */
+.crt-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.35) 2px,
+    rgba(0, 0, 0, 0.35) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+.crt-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+.crt-flicker {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9996;
+  background: rgba(74, 222, 128, 0.02);
+  animation: flicker 6s infinite steps(4);
+}
+@keyframes flicker {
+  0%, 100% { opacity: 0.2; }
+  50%      { opacity: 0.05; }
+  70%      { opacity: 0.35; }
+}
+
+/* --- 7-segment digit for visit counter --- */
+.seven-seg {
+  font-family: var(--font-pixel);
+  display: inline-block;
+  padding: 0.35em 0.5em;
+  background: #0a0f08;
+  border: 1px solid var(--fg-dim);
+  color: var(--accent);
+  text-shadow:
+    0 0 4px var(--accent),
+    0 0 8px rgba(254, 243, 199, 0.5);
+  letter-spacing: 0.15em;
+  font-size: 1.25rem;
+}
+
+/* --- pixel HP bar --- */
+.hp-bar {
+  display: grid;
+  grid-template-columns: repeat(var(--cells, 20), 1fr);
+  gap: 2px;
+  width: 100%;
+  height: 16px;
+  padding: 2px;
+  border: 1px solid var(--fg-dim);
+  background: var(--bg);
+}
+.hp-cell { background: var(--fg-dim); }
+.hp-cell.on { background: var(--fg); box-shadow: inset 0 0 2px var(--fg-bright); }
+.hp-cell.danger { background: var(--danger); }
+
+/* --- dev log prose styling --- */
+.prose-term h2 { margin: 2rem 0 0.75rem; color: var(--accent); }
+.prose-term h3 { margin: 1.25rem 0 0.5rem; color: var(--fg-bright); }
+.prose-term p, .prose-term li { margin: 0.5rem 0; }
+.prose-term ul { padding-left: 1.25rem; list-style: none; }
+.prose-term ul > li::before {
+  content: "▸ ";
+  color: var(--fg-dim);
+}
+.prose-term ol { padding-left: 1.5rem; }
+.prose-term blockquote {
+  border-left: 2px solid var(--fg-dim);
+  padding: 0.25rem 0 0.25rem 1rem;
+  color: var(--fg-bright);
+  margin: 1rem 0;
+}
+.prose-term table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.prose-term th, .prose-term td {
+  border: 1px solid var(--fg-dim);
+  padding: 0.35rem 0.75rem;
+  text-align: left;
+}
+.prose-term th { background: var(--bg-raised); color: var(--accent); }
+
+/* relative wrapper for CRT layers so content stays above */
+.shell-content { position: relative; z-index: 1; }
+
+/* focus rings, keyboard-only */
+:focus-visible {
+  outline: 1px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+/* hidden but keyboard-accessible */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* prevent scroll during boot */
+body.booting { overflow: hidden; }
