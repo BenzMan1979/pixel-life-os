@@ -29,12 +29,18 @@ export default async function Home({
             lineHeight: 1.2,
             whiteSpace: "pre",
             overflow: "hidden",
+            // force a single mono family so box-drawing chars and Latin
+            // come from the SAME font. VT323 lacks U+2500-U+257F so mixing
+            // families caused sub-pixel width drift across 37 cells.
+            fontFamily:
+              'ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace',
+            letterSpacing: 0,
           }}
           aria-hidden
         >
-{`╔═════════════════════════════════════╗
-║  pixel-life.os  ·  v0.0.1  ·  devlog ║
-╚═════════════════════════════════════╝`}
+{`╔═══════════════════════════════════════╗
+║  pixel-life.os  ·  v0.0.1  ·  devlog  ║
+╚═══════════════════════════════════════╝`}
         </pre>
         <p
           style={{
