@@ -50,18 +50,20 @@ export function MatrixRain() {
       CHAR_SET.charAt(Math.floor(Math.random() * CHAR_SET.length));
 
     const draw = () => {
-      // subtle trail by painting a translucent black over the canvas
-      ctx.fillStyle = "rgba(10, 15, 8, 0.08)";
+      // aggressive fade: each frame clears ~35% of the previous frame so
+      // trails decay in <10 frames (~0.7s at 15fps) instead of accumulating
+      // into a muddy ghost layer over time.
+      ctx.fillStyle = "rgba(10, 15, 8, 0.35)";
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
       for (let i = 0; i < drops.length; i++) {
         const x = i * FONT_SIZE;
         const y = drops[i] * FONT_SIZE;
-        // lead char brighter; body faint
+        // head char bright and near-opaque; body more translucent
         const isHead = Math.random() > 0.985;
         ctx.fillStyle = isHead
-          ? "rgba(134, 239, 172, 0.55)"
-          : "rgba(74, 222, 128, 0.22)";
+          ? "rgba(134, 239, 172, 0.95)"
+          : "rgba(74, 222, 128, 0.55)";
         ctx.fillText(pick(), x, y);
 
         if (drops[i] * FONT_SIZE > window.innerHeight && Math.random() > 0.975) {
