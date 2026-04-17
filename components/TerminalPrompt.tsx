@@ -8,7 +8,7 @@ type Props = {
 export function TerminalPrompt({
   cwd = "~",
   command,
-  user = "benzshen",
+  user = "root",
   host = "pixel-life.os",
 }: Props) {
   return (

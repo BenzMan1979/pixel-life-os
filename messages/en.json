@@ -53,7 +53,6 @@
     "revive": "← revive (back to home)"
   },
   "footer": {
-    "built": "handcrafted by benzshen @ shenprime.",
-    "not_ai": "this site was typed, not generated."
+    "built": "pixel-life@shenprime.com"
   }
 }

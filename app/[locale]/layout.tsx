@@ -66,7 +66,7 @@ export default async function LocaleLayout({
           >
             {children}
           </main>
-          <Footer built={tf("built")} notAi={tf("not_ai")} />
+          <Footer built={tf("built")} />
         </div>
         <CrtOverlay />
         <KonamiEasterEgg />
@@ -119,7 +119,7 @@ function Header({
   );
 }
 
-function Footer({ built, notAi }: { built: string; notAi: string }) {
+function Footer({ built }: { built: string }) {
   return (
     <footer
       style={{
@@ -127,14 +127,10 @@ function Footer({ built, notAi }: { built: string; notAi: string }) {
         padding: "1.25rem",
         fontSize: "0.85rem",
         color: "var(--fg-dim)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.25rem",
         textAlign: "center",
       }}
     >
       <span>{built}</span>
-      <span>{notAi}</span>
     </footer>
   );
 }
