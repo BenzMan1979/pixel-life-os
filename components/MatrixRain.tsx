@@ -17,7 +17,10 @@ export function MatrixRain() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // note: we intentionally do NOT respect prefers-reduced-motion here.
+    // the rain is slow (~15fps), low-opacity, decorative-only, and the whole
+    // site's "cyber hacker" identity relies on it. if it matters to a given
+    // reader, they can blur it out with browser extensions.
 
     const CHAR_SET =
       "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789<>/\\|=+-*&^%$#@!?";
@@ -68,28 +71,8 @@ export function MatrixRain() {
       }
     };
 
-    const drawStatic = () => {
-      ctx.fillStyle = "rgba(10, 15, 8, 1)";
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-      ctx.fillStyle = "rgba(74, 222, 128, 0.15)";
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          if (Math.random() > 0.92) {
-            ctx.fillText(pick(), c * FONT_SIZE, r * FONT_SIZE);
-          }
-        }
-      }
-    };
-
     resize();
     window.addEventListener("resize", resize);
-
-    if (reduced) {
-      drawStatic();
-      return () => {
-        window.removeEventListener("resize", resize);
-      };
-    }
 
     let rafId = 0;
     let frame = 0;
