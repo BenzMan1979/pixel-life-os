@@ -136,7 +136,7 @@ function Footer({ built, slogan }: { built: string; slogan: string }) {
       }}
     >
       <span>{built}</span>
-      <span style={{ color: "var(--accent)", letterSpacing: "0.02em" }}>
+      <span style={{ color: "var(--fg-bright)", letterSpacing: "0.02em" }}>
         {slogan}
       </span>
     </footer>
