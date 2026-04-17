@@ -25,15 +25,25 @@ export function MatrixRain() {
     const CHAR_SET =
       "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789<>/\\|=+-*&^%$#@!?";
     const FONT_SIZE = 14;
-    // longer trail + slower fall. explicit trail rendering (clear each frame,
-    // redraw trail with decaying alpha) so the canvas never accumulates.
     const TRAIL_LEN = 18;
     const DROP_STEP = 0.35;
+    // probability per drop per frame that a random trail cell "glitches" to
+    // a new char. low value → chars feel stable with occasional flicker,
+    // rather than whole screen shimmering every frame.
+    const GLITCH_RATE = 0.012;
 
     let cols = 0;
     let rows = 0;
     let drops: number[] = [];
+    // characters "burned into" each cell. only rewritten when the head moves
+    // into the cell, or rarely glitched. this is what gives the rain its
+    // tech feel — trails are stable, not a mess of random chars.
+    let charGrid: (string | null)[][] = [];
+    let lastHeadRow: number[] = [];
     let dpr = 1;
+
+    const pick = () =>
+      CHAR_SET.charAt(Math.floor(Math.random() * CHAR_SET.length));
 
     const resize = () => {
       dpr = window.devicePixelRatio || 1;
@@ -44,46 +54,63 @@ export function MatrixRain() {
       ctx.scale(dpr, dpr);
       cols = Math.ceil(window.innerWidth / FONT_SIZE);
       rows = Math.ceil(window.innerHeight / FONT_SIZE);
-      // stagger initial positions so streams don't all hit top/bottom together
       drops = Array.from({ length: cols }, () =>
         Math.random() * rows * 2 - rows
       );
+      charGrid = Array.from({ length: cols }, () => []);
+      lastHeadRow = Array.from({ length: cols }, () => Number.NEGATIVE_INFINITY);
       ctx.font = `${FONT_SIZE}px ui-monospace, Menlo, monospace`;
       ctx.textBaseline = "top";
     };
 
-    const pick = () =>
-      CHAR_SET.charAt(Math.floor(Math.random() * CHAR_SET.length));
-
     const draw = () => {
-      // full clear each frame — zero accumulation, trail is drawn explicitly.
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       for (let i = 0; i < drops.length; i++) {
         const x = i * FONT_SIZE;
         const headRow = Math.floor(drops[i]);
 
+        // write a new char into each row the head just crossed
+        const prev = lastHeadRow[i];
+        if (headRow > prev) {
+          for (let r = Math.max(prev + 1, headRow - TRAIL_LEN); r <= headRow; r++) {
+            if (r >= 0) charGrid[i][r] = pick();
+          }
+          lastHeadRow[i] = headRow;
+        }
+
+        // occasional trail glitch — one random cell re-rolls
+        if (Math.random() < GLITCH_RATE) {
+          const offset = 1 + Math.floor(Math.random() * (TRAIL_LEN - 1));
+          const r = headRow - offset;
+          if (r >= 0 && charGrid[i][r]) charGrid[i][r] = pick();
+        }
+
+        // draw trail (head to tail)
         for (let t = 0; t < TRAIL_LEN; t++) {
           const row = headRow - t;
+          if (row < 0) continue;
+          const ch = charGrid[i][row];
+          if (!ch) continue;
           const y = row * FONT_SIZE;
           if (y < -FONT_SIZE || y > window.innerHeight) continue;
           if (t === 0) {
-            ctx.fillStyle = "rgba(200, 255, 220, 0.95)"; // near-white head
+            ctx.fillStyle = "rgba(200, 255, 220, 0.95)";
           } else {
-            // linear falloff from ~0.5 → near 0 across trail
             const alpha = Math.max(0.03, 0.55 * (1 - t / TRAIL_LEN));
             ctx.fillStyle = `rgba(74, 222, 128, ${alpha})`;
           }
-          ctx.fillText(pick(), x, y);
+          ctx.fillText(ch, x, y);
         }
 
         drops[i] += DROP_STEP;
-        // recycle once head is well past the bottom (so trail fully exits)
         if (
           drops[i] * FONT_SIZE > window.innerHeight + TRAIL_LEN * FONT_SIZE &&
           Math.random() > 0.96
         ) {
           drops[i] = -Math.random() * TRAIL_LEN;
+          charGrid[i] = [];
+          lastHeadRow[i] = Number.NEGATIVE_INFINITY;
         }
       }
     };
