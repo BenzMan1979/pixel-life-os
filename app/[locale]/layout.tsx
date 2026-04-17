@@ -8,6 +8,7 @@ import { CrtOverlay } from "@/components/CrtOverlay";
 import { BootSequence } from "@/components/BootSequence";
 import { KonamiEasterEgg } from "@/components/KonamiEasterEgg";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { MatrixRain } from "@/components/MatrixRain";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -49,6 +50,7 @@ export default async function LocaleLayout({
           position: "relative",
         }}
       >
+        <MatrixRain />
         <BootSequence />
         <div
           className="shell-content"
@@ -66,7 +68,7 @@ export default async function LocaleLayout({
           >
             {children}
           </main>
-          <Footer built={tf("built")} />
+          <Footer built={tf("built")} slogan={tf("slogan")} />
         </div>
         <CrtOverlay />
         <KonamiEasterEgg />
@@ -119,7 +121,7 @@ function Header({
   );
 }
 
-function Footer({ built }: { built: string }) {
+function Footer({ built, slogan }: { built: string; slogan: string }) {
   return (
     <footer
       style={{
@@ -127,10 +129,16 @@ function Footer({ built }: { built: string }) {
         padding: "1.25rem",
         fontSize: "0.85rem",
         color: "var(--fg-dim)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.35rem",
         textAlign: "center",
       }}
     >
       <span>{built}</span>
+      <span style={{ color: "var(--accent)", letterSpacing: "0.02em" }}>
+        {slogan}
+      </span>
     </footer>
   );
 }

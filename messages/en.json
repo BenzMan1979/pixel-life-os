@@ -53,6 +53,22 @@
     "revive": "← revive (back to home)"
   },
   "footer": {
-    "built": "pixel-life@shenprime.com"
+    "built": "handcrafted @ pixel-life@shenprime.com",
+    "slogan": "unsheathe — every second past average is a win."
+  },
+  "character": {
+    "title": "hero.site",
+    "caption": "this site itself is a character. it levels up every time a feature ships.",
+    "slots": "equipment slots",
+    "locked": "all slots empty · awaiting Month 1 art lockdown",
+    "slot": {
+      "weapon": "weapon",
+      "offhand": "offhand",
+      "head": "head",
+      "body": "body",
+      "legs": "legs",
+      "boots": "boots",
+      "amulet": "amulet"
+    }
   }
 }

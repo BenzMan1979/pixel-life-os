@@ -5,6 +5,7 @@ import { TerminalPrompt } from "@/components/TerminalPrompt";
 import { PixelHpBar } from "@/components/PixelHpBar";
 import { MilestoneProgress } from "@/components/MilestoneProgress";
 import { VisitCounter } from "@/components/VisitCounter";
+import { CharacterPanel } from "@/components/CharacterPanel";
 
 export default async function Home({
   params,
@@ -56,6 +57,9 @@ export default async function Home({
           caption={`current: scaffold only. every shipped feature raises this bar.`}
         />
       </section>
+
+      {/* character panel — the site itself as a hero */}
+      <CharacterPanel />
 
       {/* milestones */}
       <MilestoneProgress />

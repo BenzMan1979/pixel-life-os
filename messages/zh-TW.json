@@ -53,6 +53,22 @@
     "revive": "← 復活（回首頁）"
   },
   "footer": {
-    "built": "pixel-life@shenprime.com"
+    "built": "由 pixel-life@shenprime.com 手工打造。",
+    "slogan": "拔劍吧——比平均多活一秒都是勝利。"
+  },
+  "character": {
+    "title": "hero.site",
+    "caption": "這個站本身也是一隻角色。每上架一個功能它就升一級。",
+    "slots": "裝備欄位",
+    "locked": "all slots empty · awaiting Month 1 art lockdown",
+    "slot": {
+      "weapon": "武器",
+      "offhand": "副手",
+      "head": "頭",
+      "body": "身",
+      "legs": "下身",
+      "boots": "腳",
+      "amulet": "飾品"
+    }
   }
 }
