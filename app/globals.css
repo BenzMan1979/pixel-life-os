@@ -316,17 +316,52 @@ pre > code {
   .nav-logo { font-size: 0.55rem; }
 }
 
-/* ASCII banner — auto-scale font so 41-char line fits any viewport */
-.ascii-banner {
+/* ============================================================
+   banner — CSS-drawn double frame. no ASCII art, no font reliance.
+   each update: text is free-flowing, the frame never drifts.
+   ============================================================ */
+.banner-frame {
+  border: 1px solid var(--fg-dim);
+  padding: 4px;
+  display: flex;
+}
+.banner-frame-inner {
+  border: 1px solid var(--fg-dim);
+  padding: 0.7rem 1rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
   color: var(--fg-dim);
-  margin: 0;
-  line-height: 1.2;
-  white-space: pre;
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
   overflow: hidden;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
-  letter-spacing: 0;
-  /* 41 chars × ~0.6em → aim ~25em; scale to viewport width, capped. */
-  font-size: clamp(0.5rem, 2.7vw, 0.85rem);
+}
+.banner-frame-inner .dot {
+  opacity: 0.55;
+}
+/* force pixel font regardless of locale — the :lang(zh) span rule
+   above otherwise swaps in the CJK font and changes the banner's
+   visual weight between locales. */
+.banner-frame-inner,
+.banner-frame-inner span,
+.cjk .banner-frame-inner span,
+:lang(zh) .banner-frame-inner span {
+  font-family: var(--font-pixel);
+  letter-spacing: 0.08em;
+}
+@media (max-width: 480px) {
+  .banner-frame-inner {
+    font-size: 0.55rem;
+    gap: 0.55em;
+    padding: 0.55rem 0.6rem;
+  }
+}
+@media (max-width: 360px) {
+  .banner-frame-inner { font-size: 0.48rem; gap: 0.4em; }
 }
 
 /* equipment slots: 7 on wide, 4 on narrow (wraps to 4+3) */

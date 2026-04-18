@@ -19,13 +19,17 @@ export default async function Home({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-      {/* banner */}
+      {/* banner — double css frame, no ascii art (immune to font drift) */}
       <section>
-        <pre className="ascii-banner" aria-hidden>
-{`╔═══════════════════════════════════════╗
-║  pixel-life.os  ·  v0.0.1  ·  devlog  ║
-╚═══════════════════════════════════════╝`}
-        </pre>
+        <div className="banner-frame">
+          <div className="banner-frame-inner">
+            <span>pixel-life.os</span>
+            <span className="dot">·</span>
+            <span>v0.0.1</span>
+            <span className="dot">·</span>
+            <span>devlog</span>
+          </div>
+        </div>
         <p
           style={{
             marginTop: "1.25rem",
