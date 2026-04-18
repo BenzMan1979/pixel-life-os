@@ -103,15 +103,7 @@ export async function CharacterPanel() {
       </div>
 
       {/* slots */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
-          gap: "0.5rem",
-          color: "var(--fg-dim)",
-        }}
-        aria-label={t("slots")}
-      >
+      <div className="slots-grid" aria-label={t("slots")}>
         {SLOTS.map((slot) => (
           <div
             key={slot.key}
@@ -119,15 +111,22 @@ export async function CharacterPanel() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: "0.3rem",
+              gap: "0.35rem",
               border: "1px solid var(--fg-dim)",
-              padding: "0.4rem 0.2rem",
+              padding: "0.55rem 0.3rem",
               background: "var(--bg)",
+              minWidth: 0,
             }}
             title={t(`slot.${slot.key}`)}
           >
             <PixelSprite name={slot.sprite} size={28} color="var(--fg-dim)" />
-            <span style={{ fontSize: "0.62rem", letterSpacing: "0.05em" }}>
+            <span
+              style={{
+                fontSize: "0.68rem",
+                letterSpacing: "0.05em",
+                whiteSpace: "nowrap",
+              }}
+            >
               {t(`slot.${slot.key}`)}
             </span>
           </div>

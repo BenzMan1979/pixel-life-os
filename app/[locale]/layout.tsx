@@ -85,34 +85,15 @@ function Header({
   t: { home: string; devlog: string };
 }) {
   return (
-    <header
-      style={{
-        borderBottom: "1px solid var(--fg-dim)",
-        padding: "0.85rem 1.25rem",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        fontFamily: "var(--font-term)",
-        fontSize: "1rem",
-      }}
-    >
-      <Link
-        href={`/${locale}`}
-        style={{
-          borderBottom: "none",
-          color: "var(--fg-bright)",
-          fontFamily: "var(--font-pixel)",
-          fontSize: "0.75rem",
-          letterSpacing: "0.08em",
-        }}
-      >
+    <header className="nav-header">
+      <Link href={`/${locale}`} className="nav-logo">
         pixel-life.os
       </Link>
-      <nav style={{ display: "flex", gap: "1.25rem", alignItems: "center" }}>
-        <Link href={`/${locale}`} style={{ borderBottom: "none", color: "var(--fg-dim)" }}>
+      <nav className="nav-links">
+        <Link href={`/${locale}`} className="nav-link">
           {t.home}
         </Link>
-        <Link href={`/${locale}/devlog`} style={{ borderBottom: "none", color: "var(--fg-dim)" }}>
+        <Link href={`/${locale}/devlog`} className="nav-link">
           {t.devlog}
         </Link>
         <LocaleSwitcher current={locale} />

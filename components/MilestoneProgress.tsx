@@ -60,18 +60,19 @@ export async function MilestoneProgress() {
           return (
             <li
               key={m.key}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "3.5em 1fr 11em",
-                gap: "1rem",
-                padding: "0.25rem 0",
-                color: colour,
-                fontSize: "1rem",
-              }}
+              className="milestone-row"
+              style={{ color: colour }}
             >
               <span>{MARK[m.status]}</span>
               <span>{t(m.key)}</span>
-              <span style={{ color: "var(--fg-dim)", textAlign: "right" }}>
+              <span
+                className="milestone-eta"
+                style={{
+                  color: "var(--fg-dim)",
+                  textAlign: "right",
+                  whiteSpace: "nowrap",
+                }}
+              >
                 {m.eta}
               </span>
             </li>

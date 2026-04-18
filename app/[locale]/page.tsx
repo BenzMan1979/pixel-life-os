@@ -21,23 +21,7 @@ export default async function Home({
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       {/* banner */}
       <section>
-        <pre
-          style={{
-            color: "var(--fg-dim)",
-            fontSize: "0.8rem",
-            margin: 0,
-            lineHeight: 1.2,
-            whiteSpace: "pre",
-            overflow: "hidden",
-            // force a single mono family so box-drawing chars and Latin
-            // come from the SAME font. VT323 lacks U+2500-U+257F so mixing
-            // families caused sub-pixel width drift across 37 cells.
-            fontFamily:
-              'ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace',
-            letterSpacing: 0,
-          }}
-          aria-hidden
-        >
+        <pre className="ascii-banner" aria-hidden>
 {`╔═══════════════════════════════════════╗
 ║  pixel-life.os  ·  v0.0.1  ·  devlog  ║
 ╚═══════════════════════════════════════╝`}
