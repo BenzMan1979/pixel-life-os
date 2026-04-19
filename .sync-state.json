@@ -1,0 +1,27 @@
+{
+  "last_sync_at": "2026-04-19",
+  "last_sync_mode": "web",
+  "notes": "first sync. scanned 00.主索引 + all module decision logs + 啟案參考文件.",
+  "last_synced_files": {
+    "模組規格/00.主索引.md": "2026-04-19",
+    "模組規格/01.角色系統/決策日誌.md": "2026-04-19",
+    "模組規格/02.HP系統/決策日誌.md": "2026-04-19",
+    "模組規格/05.AI分身/決策日誌.md": "2026-04-19",
+    "模組規格/08.訂閱與商業化/決策日誌.md": "2026-04-19",
+    "模組規格/11.官網與內容/決策日誌.md": "2026-04-19",
+    "模組規格/11.官網與內容/進度.md": "2026-04-19",
+    "模組規格/11.官網與內容/規格.md": "2026-04-19",
+    "模組規格/12.技術架構與基礎設施/決策日誌.md": "2026-04-19"
+  },
+  "content_written": [
+    "web/content/devlog/zh-TW/000-day-zero.md (easter-egg paragraph appended)",
+    "web/content/devlog/en/000-day-zero.md (easter-egg paragraph appended)",
+    "web/content/devlog/zh-TW/001-module-split.md (new)",
+    "web/content/devlog/en/001-module-split.md (new)",
+    "web/content/devlog/zh-TW/002-ai-three-tier.md (new, price-free; 14yo vs 47yo tone)",
+    "web/content/devlog/en/002-ai-three-tier.md (new, price-free; 14yo vs 47yo tone)",
+    "web/components/MilestoneProgress.tsx (inserted moduleSplit milestone)",
+    "web/messages/{zh-TW,en}.json (added milestone.moduleSplit)",
+    "web/app/[locale]/page.tsx (site HP 120 → 380 with breakdown caption)"
+  ]
+}

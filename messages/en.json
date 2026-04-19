@@ -37,6 +37,7 @@
   "milestone": {
     "title": "milestones",
     "kickoff": "kickoff",
+    "moduleSplit": "12-module split",
     "poc": "SLM proof-of-concept",
     "art": "pixel art lockdown",
     "core": "core HP engine",

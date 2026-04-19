@@ -5,6 +5,7 @@ type Status = "done" | "active" | "todo";
 type Milestone = {
   key:
     | "kickoff"
+    | "moduleSplit"
     | "poc"
     | "art"
     | "core"
@@ -18,15 +19,16 @@ type Milestone = {
 };
 
 const ROADMAP: Milestone[] = [
-  { key: "kickoff", status: "done",   eta: "M0  2026-04" },
-  { key: "poc",     status: "active", eta: "M1  2026-05" },
-  { key: "art",     status: "todo",   eta: "M1  2026-05" },
-  { key: "core",    status: "todo",   eta: "M2  2026-06" },
-  { key: "battle",  status: "todo",   eta: "M3  2026-07" },
-  { key: "gear",    status: "todo",   eta: "M4  2026-08" },
-  { key: "twin",    status: "todo",   eta: "M5  2026-09" },
-  { key: "polish",  status: "todo",   eta: "M7-8 2026-11" },
-  { key: "ship",    status: "todo",   eta: "M9  2026-12" },
+  { key: "kickoff",     status: "done",   eta: "M0    2026-04" },
+  { key: "moduleSplit", status: "done",   eta: "M0.5  2026-04" },
+  { key: "poc",         status: "active", eta: "M1    2026-05" },
+  { key: "art",         status: "todo",   eta: "M1    2026-05" },
+  { key: "core",        status: "todo",   eta: "M2    2026-06" },
+  { key: "battle",      status: "todo",   eta: "M3    2026-07" },
+  { key: "gear",        status: "todo",   eta: "M4    2026-08" },
+  { key: "twin",        status: "todo",   eta: "M5    2026-09" },
+  { key: "polish",      status: "todo",   eta: "M7-8  2026-11" },
+  { key: "ship",        status: "todo",   eta: "M9    2026-12" },
 ];
 
 const MARK: Record<Status, string> = {

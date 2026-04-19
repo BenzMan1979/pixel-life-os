@@ -37,6 +37,7 @@
   "milestone": {
     "title": "里程碑",
     "kickoff": "啟案",
+    "moduleSplit": "12 模組拆解",
     "poc": "SLM 驗證",
     "art": "像素美術定稿",
     "core": "核心 HP 引擎",

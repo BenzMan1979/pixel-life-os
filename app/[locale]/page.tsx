@@ -44,11 +44,11 @@ export default async function Home({
       {/* website HP — a meta joke: the site itself has HP that grows as more is built */}
       <section className="term-frame" data-label="site.hp" data-ext="self-demo">
         <PixelHpBar
-          current={120}
+          current={380}
           max={4516}
           cells={28}
           label="pixel-life.os  site build"
-          caption={`current: scaffold only. every shipped feature raises this bar.`}
+          caption={`+40 module-split workflow · +30 AI tri-tier spec lock · +60 RWD pass · +30 matrix rain · +40 character panel · +20 banner refactor · +40 devlog 001/002 · +120 day-0 scaffold`}
         />
       </section>
 

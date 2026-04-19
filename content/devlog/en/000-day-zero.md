@@ -13,7 +13,7 @@ this is log #000 for pixel-life.os. every future entry is written by me, not gen
 
 ## why i'm building this
 
-i'm 40. statistically, 37 years left.
+i was born in 1979. that puts me at 47 this year. taiwanese male life expectancy sits around 77 — roughly 30 years left on the clock.
 
 the first time i saw that number, i didn't feel afraid. i thought: "okay, let's use it well."
 
@@ -74,6 +74,10 @@ that's okay too. at least you'll have seen what the bet looked like.
 - DMs: Twitter/X handle coming
 
 no newsletter popup. no "join our exclusive discord." just a URL. show up when you want.
+
+oh — I've hidden a few things around this site. no map, no announcement. some need keys, some need waiting, some need a detour.
+
+if you find one, keep it to yourself. no spoilers on twitter.
 
 ```
 EOF
